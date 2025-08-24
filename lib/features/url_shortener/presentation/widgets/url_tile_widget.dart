@@ -21,17 +21,14 @@ class UrlTileWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: [
-                Text(
-                  'Shortened URL $index',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ],
-            ),
-            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(shorttedUrl, style: Theme.of(context).textTheme.bodyLarge),
+                Flexible(
+                  child: Text(
+                    shorttedUrl,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                ),
                 IconButton(
                   icon: const Icon(Icons.copy),
                   onPressed: () {

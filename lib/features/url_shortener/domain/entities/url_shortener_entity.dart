@@ -1,4 +1,6 @@
-class ShortUrlEntity {
+import 'package:equatable/equatable.dart';
+
+class ShortUrlEntity extends Equatable {
   final String alias;
   final String originalUrl;
   final String shortUrl;
@@ -8,4 +10,7 @@ class ShortUrlEntity {
     required this.originalUrl,
     required this.shortUrl,
   });
+
+  @override
+  List<Object?> get props => [alias, originalUrl, shortUrl];
 }

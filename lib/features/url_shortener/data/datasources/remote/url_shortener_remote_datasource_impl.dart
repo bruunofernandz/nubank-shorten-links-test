@@ -4,16 +4,17 @@ import 'package:nubank_shorten_links/features/url_shortener/data/models/short_ur
 
 class UrlShortenerRemoteDatasourceImpl
     implements IUrlShortenerRemoteDatasource {
-  final DioHttpClient httpClient;
+  final DioHttpClient _httpClient;
   final String baseUrl = 'https://url-shortener-server.onrender.com/api/alias';
 
-  UrlShortenerRemoteDatasourceImpl({required this.httpClient});
+  UrlShortenerRemoteDatasourceImpl({required DioHttpClient httpClient})
+    : _httpClient = httpClient;
 
   @override
   Future<ShortUrlModel> shortenUrl(String url) async {
-    final response = await httpClient.post(body: {'url': url}, url: baseUrl);
+    final response = await _httpClient.post(body: {'url': url}, url: baseUrl);
 
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return ShortUrlModel.fromJson(response.data);
     }
 

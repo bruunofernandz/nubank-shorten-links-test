@@ -1,5 +1,5 @@
 enum KeyStrings {
-  urlShortener('URL Shortener');
+  urlShortener('URL_SHORTENER');
 
   final String value;
 

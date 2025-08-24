@@ -1,4 +1,4 @@
-import 'package:nubank_shorten_links/features/url_shortener/domain/entities/short_url_entity.dart';
+import 'package:nubank_shorten_links/features/url_shortener/domain/entities/url_shortener_entity.dart';
 
 class ShortUrlModel extends ShortUrlEntity {
   ShortUrlModel({
@@ -8,10 +8,17 @@ class ShortUrlModel extends ShortUrlEntity {
   });
 
   factory ShortUrlModel.fromJson(Map<String, dynamic> json) {
+    final shortUrl =
+        json['shortUrl'] as String? ??
+        (json['_links']?['short'] as String? ?? '');
+
     return ShortUrlModel(
-      alias: json['alias'] as String,
-      originalUrl: json['originalUrl'] as String,
-      shortUrl: json['shortUrl'] as String,
+      alias: json['alias'] as String? ?? '',
+      originalUrl: json['originalUrl'] as String? ?? '',
+      shortUrl: shortUrl,
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {'alias': alias, 'originalUrl': originalUrl, 'shortUrl': shortUrl};
   }
 }

@@ -4,7 +4,7 @@ import 'package:nubank_shorten_links/core/network/http_client_interface.dart';
 class DioHttpClient implements IHttpClient {
   final Dio _dio;
 
-  DioHttpClient(this._dio);
+  DioHttpClient({required Dio dio}) : _dio = dio;
   @override
   Future<Response<dynamic>> get(String url) async {
     final response = await _dio.get(url);
