@@ -1,0 +1,50 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Dart CI with Coverage
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Analyze project source
+        run: dart analyze
+
+      - name: Run tests with coverage
+        run: |
+          dart pub global activate coverage
+          dart test --coverage=coverage
+          format_coverage --lcov --in=coverage --out=coverage/lcov.info --report-on=lib
+
+      - name: Check coverage percentage
+        run: |
+          COVERAGE=$(grep -Po 'LF:\d+|LH:\d+' coverage/lcov.info | awk -F: '{if($1=="LF") lf=$2; else if($1=="LH") lh=$2} END {if(lf>0) printf("%.2f", lh/lf*100); else print 0}')
+          echo "Coverage: $COVERAGE%"
+          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
+            echo "Test coverage is below 80% ($COVERAGE%)" && exit 1
+          fi
+        shell: bash
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: coverage/lcov.info
+          fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
