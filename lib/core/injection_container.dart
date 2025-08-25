@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:nubank_shorten_links/features/url_shortener/data/repositories_impl/url_shortener_repository_impl.dart';
-import 'package:nubank_shorten_links/features/url_shortener/domain/repositories/url_shortener_repository.dart';
+import 'package:nubank_shorten_links/features/url_shortener/data/repositories/url_shortener_repository_impl.dart';
+import 'package:nubank_shorten_links/features/url_shortener/domain/repositories/url_shortener_repository_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../features/url_shortener/data/datasources/remote/url_shortener_remote_datasource_impl.dart';

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:nubank_shorten_links/features/url_shortener/data/models/short_url_model.dart';
-import 'package:nubank_shorten_links/features/url_shortener/domain/entities/url_shortener_entity.dart';
 
 abstract class UrlShortenerState extends Equatable {
   @override
@@ -12,7 +11,7 @@ class UrlShortenerInitial extends UrlShortenerState {}
 class UrlShortenerLoading extends UrlShortenerState {}
 
 class UrlShortenerSuccess extends UrlShortenerState {
-  final ShortUrlEntity shortUrl;
+  final ShortUrlModel shortUrl;
 
   UrlShortenerSuccess({required this.shortUrl});
 

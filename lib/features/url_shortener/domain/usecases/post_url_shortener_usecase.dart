@@ -1,7 +1,7 @@
 import 'package:dart_either/src/dart_either.dart';
 import 'package:nubank_shorten_links/core/errors/failure.dart';
 import 'package:nubank_shorten_links/features/url_shortener/data/models/short_url_model.dart';
-import 'package:nubank_shorten_links/features/url_shortener/domain/repositories/url_shortener_repository.dart';
+import 'package:nubank_shorten_links/features/url_shortener/domain/repositories/url_shortener_repository_interface.dart';
 
 class PostUrlShortenerUsecase {
   final IUrlShortenerRepository _repository;

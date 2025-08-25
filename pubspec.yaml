@@ -26,16 +26,20 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  coverage: ^1.15.0
   dio: ^5.9.0
   dart_either: ^2.0.0
   equatable: ^2.0.7
   flutter_bloc: ^9.1.1
+  bloc_test: ^10.0.0
   get_it: ^8.2.0
+  mockito: ^5.5.0
   shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.7.0
   flutter_lints: ^5.0.0
 
 flutter:

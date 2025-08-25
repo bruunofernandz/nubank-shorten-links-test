@@ -10,22 +10,24 @@ import 'package:nubank_shorten_links/features/url_shortener/presentation/widgets
 import 'package:nubank_shorten_links/features/url_shortener/presentation/widgets/url_tile_widget.dart';
 
 class UrlShortenerPage extends StatefulWidget {
-  const UrlShortenerPage({super.key});
+  final UrlShortenerCubit? cubit;
+
+  const UrlShortenerPage({Key? key, this.cubit}) : super(key: key);
 
   @override
   State<UrlShortenerPage> createState() => _UrlShortenerPageState();
 }
 
 class _UrlShortenerPageState extends State<UrlShortenerPage> {
-  TextEditingController _urlController = TextEditingController();
   late final UrlShortenerCubit _cubit;
+  TextEditingController _urlController = TextEditingController();
 
   List<ShortUrlModel> shortUrls = [];
 
   @override
   void initState() {
     super.initState();
-    _cubit = sl<UrlShortenerCubit>();
+    _cubit = widget.cubit ?? sl<UrlShortenerCubit>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _cubit.loadStoredUrls();
