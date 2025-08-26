@@ -93,22 +93,6 @@ void main() {
       expect(find.text('https://short.ly/def'), findsOneWidget);
     });
 
-    testWidgets('Should call clearList when pressing the Clear button', (
-      tester,
-    ) async {
-      await tester.pumpWidget(
-        MaterialApp(home: UrlShortenerPage(cubit: mockCubit)),
-      );
-
-      final clearButton = find.text(UrlShortenerStrings.clearButton);
-      expect(clearButton, findsOneWidget);
-
-      await tester.tap(clearButton);
-      await tester.pump();
-
-      verify(mockCubit.clearList()).called(1);
-    });
-
     testWidgets('Should call shortenUrl when pressing the Shorten button', (
       tester,
     ) async {

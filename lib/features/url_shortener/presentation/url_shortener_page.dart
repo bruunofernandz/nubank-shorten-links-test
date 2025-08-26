@@ -118,7 +118,6 @@ class _UrlShortenerPageState extends State<UrlShortenerPage> {
                                   text: '${UrlShortenerStrings.clearButton}',
                                   onPressed: () {
                                     _urlController.clear();
-                                    _cubit.clearList();
                                   },
                                 ),
                               ),
