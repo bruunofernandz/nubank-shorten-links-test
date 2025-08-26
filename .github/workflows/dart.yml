@@ -7,9 +7,9 @@ name: Dart CI with Coverage
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ['master']
   pull_request:
-    branches: [ "master" ]
+    branches: ['master']
 
 jobs:
   build:
@@ -18,26 +18,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
 
       - name: Analyze project source
-        run: dart analyze
+        run: flutter analyze
 
       - name: Run tests with coverage
         run: |
-          dart pub global activate coverage
-          dart test --coverage=coverage
-          format_coverage --lcov --in=coverage --out=coverage/lcov.info --report-on=lib
+          sudo apt-get update
+          sudo apt-get install -y lcov
+          flutter test --coverage
+          genhtml coverage/lcov.info --output-directory coverage/html
 
       - name: Check coverage percentage
         run: |
-          COVERAGE=$(grep -Po 'LF:\d+|LH:\d+' coverage/lcov.info | awk -F: '{if($1=="LF") lf=$2; else if($1=="LH") lh=$2} END {if(lf>0) printf("%.2f", lh/lf*100); else print 0}')
-          echo "Coverage: $COVERAGE%"
-          if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-            echo "Test coverage is below 80% ($COVERAGE%)" && exit 1
+          total_lines=$(grep -Po 'LF:\d+' coverage/lcov.info | awk -F: '{s+=$2} END {print s}')
+          covered_lines=$(grep -Po 'LH:\d+' coverage/lcov.info | awk -F: '{s+=$2} END {print s}')
+          if [ "$total_lines" -eq 0 ]; then
+            coverage=0
+          else
+            coverage=$(awk "BEGIN {printf \"%.2f\", ($covered_lines/$total_lines)*100}")
+          fi
+          echo "Coverage: $coverage%"
+          if (( $(echo "$coverage < 80" | bc -l) )); then
+            echo "Test coverage is below 80% ($coverage%)" && exit 1
           fi
         shell: bash
 
