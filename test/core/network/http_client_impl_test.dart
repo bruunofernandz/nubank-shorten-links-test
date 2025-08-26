@@ -4,7 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:nubank_shorten_links/core/network/http_client_impl.dart';
 
-import 'http_client_impl_test.mocks.dart';
+import '../../mocks/http_client_impl_test.mocks.dart';
 
 @GenerateMocks([Dio, Response])
 void main() {
@@ -17,7 +17,7 @@ void main() {
   });
 
   group('DioHttpClient', () {
-    test('post returns response', () async {
+    test('should post returns response', () async {
       final url = 'https://example.com';
       final responseData = {
         'alias': 'abc123',
@@ -40,7 +40,7 @@ void main() {
       verify(mockDio.post(url, data: {'url': url})).called(1);
     });
 
-    test('post throws DioError when Dio throws', () async {
+    test('should post throws DioError when Dio throws', () async {
       final url = 'https://example.com';
       final body = {'url': url};
       final dioError = DioException(
