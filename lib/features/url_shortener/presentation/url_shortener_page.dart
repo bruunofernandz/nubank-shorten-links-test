@@ -136,8 +136,7 @@ class _UrlShortenerPageState extends State<UrlShortenerPage> {
                         ),
                       ),
 
-                      state is UrlShortenerLoading ||
-                              state is UrlShortenerListLoading
+                      state is UrlShortenerLoading
                           ? Center(child: CircularProgressIndicator())
                           : ListView.builder(
                               itemCount: storedUrls.length,
