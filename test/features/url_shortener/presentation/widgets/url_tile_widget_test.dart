@@ -11,7 +11,7 @@ void main() {
     Clipboard.setData(const ClipboardData(text: ''));
   });
 
-  testWidgets('UrlTileWidget displays the shortened URL', (
+  testWidgets('should UrlTileWidget displays the shortened URL', (
     WidgetTester tester,
   ) async {
     await tester.pumpWidget(
@@ -25,7 +25,7 @@ void main() {
   });
 
   testWidgets(
-    'UrlTileWidget copies URL to clipboard and shows SnackBar on copy button tap',
+    'should UrlTileWidget copies URL to clipboard and shows SnackBar on copy button tap',
     (WidgetTester tester) async {
       tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
         SystemChannels.platform,
