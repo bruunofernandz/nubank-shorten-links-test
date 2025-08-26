@@ -1,10 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:nubank_shorten_links/core/network/http_client_impl.dart';
 import 'package:nubank_shorten_links/features/url_shortener/data/datasources/remote/url_shortener_remote_datasource_impl.dart';
 import 'package:nubank_shorten_links/features/url_shortener/data/models/short_url_model.dart';
 
 import '../../../../mocks/url_shortener_remote_datasource_impl_test.mocks.dart';
 
+@GenerateMocks([DioHttpClient, Response])
 void main() {
   group('UrlShortenerRemoteDatasourceImpl', () {
     late MockDioHttpClient mockHttpClient;

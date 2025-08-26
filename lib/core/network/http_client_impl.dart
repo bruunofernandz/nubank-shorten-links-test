@@ -6,12 +6,6 @@ class DioHttpClient implements IHttpClient {
 
   DioHttpClient({required Dio dio}) : _dio = dio;
   @override
-  Future<Response<dynamic>> get(String url) async {
-    final response = await _dio.get(url);
-    return response.data;
-  }
-
-  @override
   Future<Response<dynamic>> post({
     required String url,
     required Map<String, dynamic> body,
